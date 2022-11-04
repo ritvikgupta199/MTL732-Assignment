@@ -7,12 +7,13 @@ import os
 from scipy.stats import norm
 
 nstocks = [20, 30, 50]
+ds = [0.03, 0.02, 0.01]
 
 def setup():
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_dir', type=str, default='data/generated/')
     parser.add_argument('--alpha', type=float, default=0.9)
-    parser.add_argument('--d', type=float, default=0.023)
+    parser.add_argument('--d', type=float, default=-1)
     parser.add_argument('--short', action='store_true', default=False)
     args = parser.parse_args()
     return args
@@ -20,11 +21,13 @@ def setup():
 def main():
     args = setup()
     ws = []
-    for nstock in nstocks:
+    for nstock, d_ in zip(nstocks, ds):
         C = pd.read_csv(os.path.join(args.data_dir, f'cov_matrix_{nstock}.csv')).to_numpy()
         mu = pd.read_csv(os.path.join(args.data_dir, f'cov_matrix_{nstock}.csv')).iloc[:, 1].to_numpy()
         alpha = args.alpha
         d = args.d
+        if d < 0:
+            d = d_
         n = len(mu)
         # print(n, mu)
         phi = norm.ppf(alpha) # inv normal cdf
