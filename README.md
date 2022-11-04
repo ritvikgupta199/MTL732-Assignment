@@ -21,7 +21,7 @@ $$
 $$
 
 Comparing our formulation to this form, we get,
-$ 
+$$
 f = \mu; \quad F = [1, 1, 1, \ldots 1]; \quad g = 1 \\ 
 A_0 = C^{1/2}; \quad b_0 = 0; \quad c_0 = \mu*(\phi^{-1}(\alpha))^{-1}; \quad d_0 = (\phi^{-1}(\alpha))^{-1}d;
-$
+$$
