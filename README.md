@@ -5,8 +5,8 @@
 The optimization problem for chance-constrained optimization is given by -
 $$
 \begin{aligned}
-\max_{w} \quad & w^{T}\mu \\
-\textrm{s.t.} \quad & \phi^{-1}(\alpha) || C^{1/2} w||_2 \leq w^{T}\mu + d\\
+\max_{w} \quad & \mu^{T}w \\
+\textrm{s.t.} \quad & \phi^{-1}(\alpha) || C^{1/2} w||_2 \leq \mu^{T}w + d\\
   & \sum_{i=1}^n w_i = 1\\
   & w_i \geq 0, \quad i=1,\ldots,n
 \end{aligned}
@@ -22,6 +22,6 @@ $$
 
 Comparing our formulation to this form, we get,
 $$
-f = \mu; \quad F = [1, 1, 1, \ldots 1]; \quad g = 1 \\ 
+x=w; \quad f = \mu; \quad F = [1, 1, 1, \ldots 1]; \quad g = 1 \\ 
 A_0 = C^{1/2} * (\phi^{-1}(\alpha)); \quad b_0 = 0; \quad c_0 = \mu; \quad d_0 = d;
 $$
