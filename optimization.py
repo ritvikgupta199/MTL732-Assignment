@@ -19,8 +19,8 @@ def setup():
     parser = argparse.ArgumentParser()
     parser.add_argument('--cov', type=str, default='data/cov_matrix_d.csv')
     parser.add_argument('--mean', type=str, default='data/mean_d.csv')
-    parser.add_argument('--alpha', type=float, default=0.6)
-    parser.add_argument('--d', type=float, default=0.6)
+    parser.add_argument('--alpha', type=float, default=0.9)
+    parser.add_argument('--d', type=float, default=0.05)
     args = parser.parse_args()
     return args
 
@@ -31,25 +31,27 @@ def main():
     alpha = args.alpha
     d = args.d
     n = len(mu)
-    print(n, mu)
+    # print(n, mu)
     phi = norm.ppf(alpha) # inv normal cdf
 
     F = np.ones(n)
     g = 1
     A0 = scipy.linalg.cholesky(C, lower=True) #cholesky decomposition of C
-    c0 = mu * phi
-    d0 = d * phi
+    c0 = mu / phi
+    d0 = d / phi
 
     w = cp.Variable(n)
     constraints = [
         cp.SOC(c0.T @ w + d0, A0 @ w),
     ]
-    prob = cp.Problem(cp.Maximize(mu.T @ w), constraints + [F @ w == g])
+    risk = 0.01
+    prob = cp.Problem(cp.Maximize(mu.T @ w), constraints + [F @ w == g] + [w >= 0])
     # prob = cp.Problem(cp.Minimize(mu.T @ w), constraints + [F @ w == g])
     # sol = prob.solve(verbose = True)
     sol = prob.solve()
     # prob.solve()
     print(sol)
+    print(w.value)
 
 
 if __name__=='__main__':
