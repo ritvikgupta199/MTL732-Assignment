@@ -2,16 +2,16 @@
 
 ## Chance-constrained optimization
 
+The optimization problem for chance-constrained optimization is given by -
 $$
 \begin{aligned}
-\min_{w} \quad & w^{T}\mu \\
-\textrm{s.t.} \quad & -w^{T}\mu + \phi^{-1}(\alpha) || C^{1/2} w||_2 \leq d\\
+\max_{w} \quad & w^{T}\mu \\
+\textrm{s.t.} \quad & \phi^{-1}(\alpha) || C^{1/2} w||_2 \leq w^{T}\mu + d\\
   & \sum_{i=1}^n w_i = 1\\
   & w_i \geq 0, \quad i=1,\ldots,n
 \end{aligned}
 $$
-
-CVXPY provides Second Order Cone Programming (SOCP) solvers. The SOCP solver solves the following problem:
+We have used CVXPY to solve the optimization problem. As the chance-constrained optmization problem is a Second Order Cone Problem (SOCP), we use the SOCP solver from CVXPY to find the optimum point of the problem. The SOCP solver solves the following problem:
 $$
 \begin{aligned}
 \min_{} \quad & f^{T}x \\
@@ -23,5 +23,5 @@ $$
 Comparing our formulation to this form, we get,
 $$
 f = \mu; \quad F = [1, 1, 1, \ldots 1]; \quad g = 1 \\ 
-A_0 = C^{1/2}; \quad b_0 = 0; \quad c_0 = \mu*(\phi^{-1}(\alpha))^{-1}; \quad d_0 = (\phi^{-1}(\alpha))^{-1}d;
+A_0 = C^{1/2} * (\phi^{-1}(\alpha)); \quad b_0 = 0; \quad c_0 = \mu; \quad d_0 = d;
 $$
