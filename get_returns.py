@@ -8,7 +8,7 @@ read_symbols = 'snp500sym.csv'
 write_symbols = 'symbols.csv'
 write_csv = 'data/return.csv'
 min_time = 400
-offset=30
+offset=15
 def get_prices(filename):
     syms = []
     prices = {}
