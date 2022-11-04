@@ -20,7 +20,7 @@ def setup():
     parser.add_argument('--cov', type=str, default='data/cov_matrix_d.csv')
     parser.add_argument('--mean', type=str, default='data/mean_d.csv')
     parser.add_argument('--alpha', type=float, default=0.9)
-    parser.add_argument('--d', type=float, default=0.05)
+    parser.add_argument('--d', type=float, default=0)
     args = parser.parse_args()
     return args
 
@@ -45,10 +45,10 @@ def main():
         cp.SOC(c0.T @ w + d0, A0 @ w),
     ]
     risk = 0.01
-    prob = cp.Problem(cp.Maximize(mu.T @ w), constraints + [F @ w == g] + [w >= 0])
-    # prob = cp.Problem(cp.Minimize(mu.T @ w), constraints + [F @ w == g])
-    # sol = prob.solve(verbose = True)
-    sol = prob.solve()
+    # prob = cp.Problem(cp.Maximize(mu.T @ w), constraints + [F @ w == g] + [w >= 0])
+    prob = cp.Problem(cp.Minimize(mu.T @ w), constraints + [F @ w == g])
+    sol = prob.solve(verbose = True)
+    # sol = prob.solve()
     # prob.solve()
     print(sol)
     print(w.value)

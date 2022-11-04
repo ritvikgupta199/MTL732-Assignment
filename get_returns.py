@@ -8,7 +8,7 @@ read_symbols = 'snp500sym.csv'
 write_symbols = 'symbols.csv'
 write_csv = 'data/return.csv'
 min_time = 400
-offset=1
+offset=30
 def get_prices(filename):
     syms = []
     prices = {}
@@ -33,7 +33,7 @@ def get_prices(filename):
 
 def get_returns(prices):
     prices = np.array(prices)
-    returns = np.diff(prices)/prices[:-offset]
+    returns = (prices[offset:] - prices[:-offset])/prices[:-offset]
     return returns[-min_time:]
 
 def main():
