@@ -12,7 +12,7 @@ def setup():
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_dir', type=str, default='data/generated/')
     parser.add_argument('--alpha', type=float, default=0.9)
-    parser.add_argument('--d', type=float, default=0.1)
+    parser.add_argument('--d', type=float, default=0.023)
     parser.add_argument('--short', action='store_true', default=False)
     args = parser.parse_args()
     return args
@@ -41,7 +41,6 @@ def main():
         ]
 
         w_eq = [1/nstock for _ in range(nstock)]
-        phi * norm()
 
         if not args.short:
             prob = cp.Problem(cp.Maximize(mu.T @ w), constraints + [F @ w == g] + [w >= 0])
